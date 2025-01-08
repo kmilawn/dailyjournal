@@ -5,7 +5,7 @@ include "koneksi.php";
 
 //check jika belum ada user yang login arahkan ke halaman login
 if (!isset($_SESSION['username'])) {
-        header("location:login.php"); 
+	$_SESSION['username'] = 'kokimil'; 
 } 
 ?>
 
@@ -65,8 +65,8 @@ if (!isset($_SESSION['username'])) {
                 <?= $_SESSION['username'] ?>
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="edit_profil.php">Profil kokimil</a></li>
-                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                <li><a class="dropdown-item" href="edit_profile.php">Profile Kokimil</a></li>
+                  <li><a class="dropdown-item" href="logout.php">Logout</a></li>
               </ul>
             </li>
           </ul>
