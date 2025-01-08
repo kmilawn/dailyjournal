@@ -1,5 +1,5 @@
 <?php
-include "koneksi.php"; 
+include "koneksi.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -12,6 +12,8 @@ include "koneksi.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
     <!-- nav begin -->
@@ -72,7 +74,7 @@ include "koneksi.php";
 <!-- article begin -->
 <section id="article" class="text-center p-5">
   <div class="container">
-    <h1 class="fw-bold display-4 pb-3">article</h1>
+    <h1 class="fw-bold display-4 pb-3">Article</h1>
     <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
       <?php
       $sql = "SELECT * FROM article ORDER BY tanggal DESC";
@@ -103,40 +105,54 @@ include "koneksi.php";
   </div>
 </section>
 <!-- article end -->
-    <!-- gallery begin -->
-      <section id="gallery" class="text-center p-5 bg-light">
-        <div class="container">
-          <h1 class="fw-bold display-4 pb-3">Gallery</h1>
-          <div id="carouselExample" class="carousel slide">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="https://images.unsplash.com/photo-1583997052301-0042b33fc598?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1618944847828-82e943c3bdb7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fHw%3D" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1547756536-cde3673fa2e5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGhhcnJ5JTIwcG90dGVyfGVufDB8fDB8fHww" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1599518333229-8d0681f62323?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGhhcnJ5JTIwcG90dGVyfGVufDB8fDB8fHww" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1618944000324-1b3a77970ded?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIxfHx8ZW58MHx8fHx8" class="d-block w-100" alt="...">
+
+    <!-- Gallery Begin -->
+<section id="gallery" class="text-center p-5 bg-light">
+  <div class="container">
+    <h1 class="fw-bold display-4 pb-3">Gallery</h1>
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <?php
+        // Variabel untuk menandai item aktif
+        $sql = "SELECT * FROM gallery";
+        $hasil = $conn->query($sql);
+        $isActive = true;
+
+        // Tampilkan data gambar jika ada
+        if ($hasil->num_rows > 0):
+          while ($row = $hasil->fetch_assoc()):
+            // Tambahkan class "active" hanya untuk item pertama
+            $activeClass = $isActive ? "active" : "";
+            $isActive = false; // Setelah item pertama, set menjadi false
+        ?>
+            <div class="carousel-item <?= $activeClass ?>">
+            <img src="<?= htmlspecialchars($row['gambar'], ENT_QUOTES, 'UTF-8') ?>" class="d-block w-100" alt="Gambar Gallery">
+                <p><?= htmlspecialchars($row['id']) ?></p>
               </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+        <?php
+          endwhile;
+        else:
+        ?>
+          <div class="carousel-item active">
+            <p class="text-muted">Tidak ada gambar di gallery.</p>
           </div>
-        </div>
-      </section>
-    <!-- gallery end -->
+        <?php endif; ?>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</section>
+<!-- Gallery End -->
+
+
 
     <!-- schedule begin -->
     <section id="schedule" class="text-center p-5">

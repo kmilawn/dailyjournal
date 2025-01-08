@@ -1,5 +1,5 @@
 <?php 
-function upload_foto($File){    
+function upload($File){    
 	$uploadOk = 1;
 	$hasil = array();
 	$message = '';
