@@ -32,10 +32,10 @@
                             
                             <td>
                                 <?php
-                                if ($row["gambar"] != '') {
-                                    if (file_exists('' . $row["gambar"] . '')) {
+                                if ($row["gambar"] != 'img/') {
+                                    if (file_exists('img/' . $row["gambar"] . '')) {
                                 ?>
-                                        <img src="<?= htmlspecialchars($row['gambar'], ENT_QUOTES, 'UTF-8') ?>" width="100" alt="Gambar Gallery">
+                                        <img src="<?= $imagePath ?>" class="d-block w-100" alt="Gallery Image">
                                 <?php
                                     }
                                 }
@@ -55,12 +55,12 @@
                                     </div>
                                     <form method="post" action="" enctype="multipart/form-data">
                                         <div class="modal-body">
-                                            <div class="mb-3">
+                                            <!--<div class="mb-3">
                                                 <label for="formGroupExampleInput" class="form-label">Judul</label>
                                                 <input type="hidden" name="id" value="<?= $row["id"] ?>">
                                                 <input type="text" class="form-control" name="judul" placeholder="Tuliskan Judul Artikel" value="<?= $row["judul"] ?>" required>
                                             </div>
-                                           <!-- <div class="mb-3">
+                                            <div class="mb-3">
                                                 <label for="floatingTextarea2">Isi</label>
                                                 <textarea class="form-control" placeholder="Tuliskan Isi Artikel" name="isi" required><?= $row["isi"] ?></textarea>
                                             </div> -->
@@ -71,10 +71,10 @@
                                             <div class="mb-3">
                                                 <label for="formGroupExampleInput3" class="form-label">Gambar Lama</label>
                                                 <?php
-                                                if ($row["gambar"] != '') {
-                                                    if (file_exists('' . $row["gambar"] . '')) {
+                                                if ($row["gambar"] != 'img/') {
+                                                    if (file_exists('img/' . $row["gambar"] . '')) {
                                                 ?>
-                                                        <img src="<?= htmlspecialchars($row['gambar'], ENT_QUOTES, 'UTF-8') ?>"  width="100" alt="Gambar Gallery">
+                                                        <img src="<?= $imagePath ?>" class="d-block w-100" alt="Gallery Image">
                                                 <?php
                                                     }
                                                 }
@@ -103,7 +103,7 @@
                                     <form method="post" action="" enctype="multipart/form-data">
                                         <div class="modal-body">
                                             <div class="mb-3">
-                                                <label for="formGroupExampleInput" class="form-label">Yakin akan menghapus Gambar<strong><?= $row["judul"] ?></strong>"?</label>
+                                                <label for="formGroupExampleInput" class="form-label">Yakin akan menghapus Gambar<strong><?= $row["tanggal"] ?></strong>"?</label>
                                                 <input type="hidden" name="id" value="<?= $row["id"] ?>">
                                                 <input type="hidden" name="gambar" value="<?= $row["gambar"] ?>">
                                             </div>
@@ -143,7 +143,7 @@
                                         <div class="mb-3">
                                             <label for="floatingTextarea2">Tanggal</label>
                                             <textarea class="form-control" placeholder="Masukkan Tanggal" name="tanggal" required></textarea>
-                                        </div> 
+                                        </div> -->
                                         <div class="mb-3">
                                             <label for="formGroupExampleInput2" class="form-label">Gambar</label>
                                             <input type="file" class="form-control" name="gambar">
@@ -151,7 +151,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <input type="submit" value="simpan" name="simpan" class="btn btn-primary">
+                                        <input type="submit" value="save" name="save" class="btn btn-primary">
                                     </div>
                                 </form>
                             </div>
@@ -190,14 +190,14 @@ include "upload.php";
 //jika tombol simpan diklik
 if (isset($_POST['simpan'])) {
     
-    $id = $_POST['id'];
+    //$id = $_POST['id'];
     $tanggal = date("Y-m-d H:i:s");
     $username = $_SESSION['username'];
-    $gambar = '';
+    $gambar = 'img/';
     $nama_gambar = $_FILES['gambar']['name'];
 
     //upload gambar
-    if ($nama_gambar != '') {
+    if ($nama_gambar != 'img/') {
         $cek_upload = upload_foto($_FILES["gambar"]);
 
         if ($cek_upload['status']) {
@@ -215,12 +215,12 @@ if (isset($_POST['simpan'])) {
         //update data
         $id = $_POST['id'];
 
-        if ($nama_gambar == '') {
+        if ($nama_gambar == ' ') {
             //jika tidak ganti gambar
             $gambar = $_POST['gambar_lama'];
         } else {
             //jika ganti gambar, hapus gambar lama
-            unlink("" . $_POST['gambar_lama']);
+            unlink("img/" . $_POST['gambar_lama']);
         }
 
         $stmt = $conn->prepare("UPDATE gallery 
@@ -262,9 +262,9 @@ if (isset($_POST['hapus'])) {
     $id = $_POST['id'];
     $gambar = $_POST['gambar'];
 
-    if ($gambar != '') {
+    if ($gambar != 'img/') {
         //hapus file gambar
-        unlink("" . $gambar);
+        unlink("img/" . $gambar);
     }
 
     $stmt = $conn->prepare("DELETE FROM gallery WHERE id =?");

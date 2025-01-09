@@ -30,10 +30,10 @@
                             
                             <td>
                                 <?php
-                                if ($row["gambar"] != '') {
-                                    if (file_exists('' . $row["gambar"] . '')) {
+                                if ($row["gambar"] != 'img/') {
+                                    if (file_exists('img/' . $row["gambar"] . '')) {
                                 ?>
-                                        <img src="<?= htmlspecialchars($row['gambar'], ENT_QUOTES, 'UTF-8') ?>" width="100" alt="Gambar Gallery">
+                                        <img src="img/<?= htmlspecialchars($row['gambar'], ENT_QUOTES, 'UTF-8') ?>" width="100" alt="Gambar Gallery">
                                 <?php
                                     }
                                 }
@@ -71,8 +71,8 @@
                                             <div class="mb-3">
                                                 <label for="formGroupExampleInput3" class="form-label">Gambar Lama</label>
                                                 <?php
-                                                if ($row["gambar"] != '') {
-                                                    if (file_exists('' . $row["gambar"] . '')) {
+                                                if ($row["gambar"] != 'img/') {
+                                                    if (file_exists('img/' . $row["gambar"] . '')) {
                                                 ?>
                                                         <br><img src="<?= htmlspecialchars($row['gambar'], ENT_QUOTES, 'UTF-8') ?>" width="100" alt="Gambar Gallery">
                                                 <?php

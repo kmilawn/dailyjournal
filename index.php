@@ -107,38 +107,30 @@ include "koneksi.php";
 <!-- article end -->
 
     <!-- Gallery Begin -->
-<section id="gallery" class="text-center p-5 bg-light">
-  <div class="container">
-    <h1 class="fw-bold display-4 pb-3">Gallery</h1>
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <?php
-        // Variabel untuk menandai item aktif
-        $sql = "SELECT * FROM gallery";
-        $hasil = $conn->query($sql);
-        $isActive = true;
+    <section id="gallery" class="text-center p-5 bg-light">
+      <div class="container">
+        <h1 class="fw-bold display-4 pb-3">Gallery</h1>
+          <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <?php
+                // Query untuk mengambil data galeri
+                $sql = "SELECT * FROM gallery ORDER BY id DESC";
+                $hasil = $conn->query($sql);
+                $active = true; // Penanda untuk item aktif pertama
 
-        // Tampilkan data gambar jika ada
-        if ($hasil->num_rows > 0):
-          while ($row = $hasil->fetch_assoc()):
-            // Tambahkan class "active" hanya untuk item pertama
-            $activeClass = $isActive ? "active" : "";
-            $isActive = false; // Setelah item pertama, set menjadi false
-        ?>
-            <div class="carousel-item <?= $activeClass ?>">
-            <img src="<?= htmlspecialchars($row['gambar'], ENT_QUOTES, 'UTF-8') ?>" class="d-block w-100" alt="Gambar Gallery">
-                <p><?= htmlspecialchars($row['id']) ?></p>
+                // Loop melalui hasil query
+                while ($row = $hasil->fetch_assoc()) {
+                    $imagePath = isset($row["gambar"]) && $row["gambar"] !== '' ? 'img/' . $row["gambar"] : 'placeholder.jpg';
+                ?>
+                    <!-- Set kelas 'active' hanya untuk item pertama -->
+                    <div class="carousel-item <?= $active ? 'active' : '' ?>">
+                        <img src="<?= $imagePath ?>" class="d-block w-100" alt="Gallery Image">
+                    </div>
+                <?php
+                    $active = false; // Setelah item pertama, ubah $active menjadi false
+                }
+                ?>
               </div>
-            </div>
-        <?php
-          endwhile;
-        else:
-        ?>
-          <div class="carousel-item active">
-            <p class="text-muted">Tidak ada gambar di gallery.</p>
-          </div>
-        <?php endif; ?>
-      </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
