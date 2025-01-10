@@ -16,7 +16,7 @@
                     $limit_start = ($hlm - 1) * $limit;
                     $no = $limit_start + 1;
                     
-                    $sql = "SELECT * FROM Gallery ORDER BY tanggal DESC LIMIT $limit_start, $limit";
+                    $sql = "SELECT * FROM gallery ORDER BY tanggal DESC LIMIT $limit_start, $limit";
                     $hasil = $conn->query($sql);
                     while ($row = $hasil->fetch_assoc()) {
                     ?>
@@ -30,10 +30,10 @@
                             
                             <td>
                                 <?php
-                                if ($row["gambar"] != 'img/') {
+                                if ($row["gambar"] != '') {
                                     if (file_exists('img/' . $row["gambar"] . '')) {
                                 ?>
-                                        <img src="img/<?= htmlspecialchars($row['gambar'], ENT_QUOTES, 'UTF-8') ?>" width="100" alt="Gambar Gallery">
+                                        <img src="img/<?= $row["gambar"] ?>" width="100">
                                 <?php
                                     }
                                 }
@@ -71,10 +71,10 @@
                                             <div class="mb-3">
                                                 <label for="formGroupExampleInput3" class="form-label">Gambar Lama</label>
                                                 <?php
-                                                if ($row["gambar"] != 'img/') {
+                                                if ($row["gambar"] != '') {
                                                     if (file_exists('img/' . $row["gambar"] . '')) {
                                                 ?>
-                                                        <br><img src="<?= htmlspecialchars($row['gambar'], ENT_QUOTES, 'UTF-8') ?>" width="100" alt="Gambar Gallery">
+                                                        <br><img src="img/<?= $row["gambar"] ?>" width="100">
                                                 <?php
                                                     }
                                                 }

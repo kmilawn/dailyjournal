@@ -58,7 +58,7 @@ include "koneksi.php";
       <section id="hero" class="text-center p-5 bg-light text-sm-start">
         <div class="container">
           <div class="d-sm-flex flex-sm-row-reverse align-items-center">
-            <img src="https://i.pinimg.com/474x/b9/3b/ce/b93bce7326c7e1c7eaa838aa1b604393.jpg" class="img-fluid" width="300">
+            <img src="https://i.pinimg.com/474x/b9/3b/ce/b93bce7326c7e1c7eaa838aa1b604393.jpg" class="img-fluid" width="300" >
             <div>
               <h1 class="fw-bold display-4">Hogwarts, The Wizarding World, School of Witchcraft and Wizardry</h1>
               <h4 class="lead display-6">The fun facts about Harry Potter</h4>
@@ -272,6 +272,8 @@ include "koneksi.php";
         document.getElementById("hero").classList.add("bg-dark");
         document.getElementById("gallery").classList.remove("bg-light");
         document.getElementById("gallery").classList.add("bg-dark");
+        document.getElementById("aboutme").classList.remove("bg-light");
+        document.getElementById("aboutme").classList.add("bg-dark");
       };
       document.getElementById("light").onclick = function () {
         document.body.style.backgroundColor = "white";
@@ -280,6 +282,8 @@ include "koneksi.php";
         document.getElementById("hero").classList.add("bg-light");
         document.getElementById("gallery").classList.remove("bg-dark");
         document.getElementById("gallery").classList.add("bg-light");
+        document.getElementById("aboutme").classList.remove("bg-dark");
+        document.getElementById("aboutme").classList.add("bg-light");
       };
     </script>
   </body>

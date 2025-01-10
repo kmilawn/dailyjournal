@@ -16,9 +16,8 @@
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT * FROM Gallery ORDER BY tanggal DESC";
+                    $sql = "SELECT * FROM gallery ORDER BY tanggal DESC";
                     $hasil = $conn->query($sql);
-
                     $no = 1;
                     while ($row = $hasil->fetch_assoc()) {
                     ?>
@@ -32,10 +31,10 @@
                             
                             <td>
                                 <?php
-                                if ($row["gambar"] != 'img/') {
+                                if ($row["gambar"] != '') {
                                     if (file_exists('img/' . $row["gambar"] . '')) {
                                 ?>
-                                        <img src="<?= $imagePath ?>" class="d-block w-100" alt="Gallery Image">
+                                         <img src="img/<?= $row["gambar"] ?>" width="100">
                                 <?php
                                     }
                                 }
@@ -71,10 +70,10 @@
                                             <div class="mb-3">
                                                 <label for="formGroupExampleInput3" class="form-label">Gambar Lama</label>
                                                 <?php
-                                                if ($row["gambar"] != 'img/') {
+                                                if ($row["gambar"] != '') {
                                                     if (file_exists('img/' . $row["gambar"] . '')) {
                                                 ?>
-                                                        <img src="<?= $imagePath ?>" class="d-block w-100" alt="Gallery Image">
+                                                    <br> <img src="img/<?= $row["gambar"] ?>" width="100">
                                                 <?php
                                                     }
                                                 }
@@ -151,7 +150,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <input type="submit" value="save" name="save" class="btn btn-primary">
+                                        <input type="submit" value="simpan" name="simpan" class="btn btn-primary">
                                     </div>
                                 </form>
                             </div>
@@ -193,11 +192,11 @@ if (isset($_POST['simpan'])) {
     //$id = $_POST['id'];
     $tanggal = date("Y-m-d H:i:s");
     $username = $_SESSION['username'];
-    $gambar = 'img/';
+    $gambar = '';
     $nama_gambar = $_FILES['gambar']['name'];
 
     //upload gambar
-    if ($nama_gambar != 'img/') {
+    if ($nama_gambar != '') {
         $cek_upload = upload_foto($_FILES["gambar"]);
 
         if ($cek_upload['status']) {
@@ -215,7 +214,7 @@ if (isset($_POST['simpan'])) {
         //update data
         $id = $_POST['id'];
 
-        if ($nama_gambar == ' ') {
+        if ($nama_gambar == 'img/') {
             //jika tidak ganti gambar
             $gambar = $_POST['gambar_lama'];
         } else {

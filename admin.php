@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 include "koneksi.php";  
@@ -59,6 +60,9 @@ if (!isset($_SESSION['username'])) {
             </li>
             <li class="nav-item">
               <a class="nav-link" href="admin.php?page=gallery">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php?page=gallery">Homepage</a>
             </li> 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-danger fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,7 +71,7 @@ if (!isset($_SESSION['username'])) {
               <ul class="dropdown-menu">
               <li class="nav-item">
             </li> 
-            <a class="nav-link" href="admin.php?page=profile">Profile</a>
+            <a class="nav-link" href="admin.php?page=update_profile">Profile</a>
                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
               </ul>
             </li>

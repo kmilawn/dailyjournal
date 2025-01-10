@@ -7,12 +7,7 @@
 
     //check jika sudah ada user yang login arahkan ke halaman admin
     if (isset($_SESSION['username'])) { 
-	    header("location:admin.php"); 
-    }
-
-    //check jika sudah ada user yang login arahkan ke halaman admin
-    if (isset($_SESSION['username'])) { 
-        header("location:admin.php"); 
+	    header("location:profile.php"); 
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -23,7 +18,7 @@
 
         //prepared statement
     $stmt = $conn->prepare("SELECT username 
-                            FROM user 
+                            FROM profil
                             WHERE username=? AND password=?");
 
         //parameter binding 
@@ -44,10 +39,10 @@
         $_SESSION['username'] = $row['username'];
 
         //mengalihkan ke halaman admin
-        header("location:admin.php");
+        header("location:profile.php");
     } else {
         //jika tidak ada (gagal), alihkan kembali ke halaman login
-        header("location:login.php");
+        header("location:login2.php");
     }
 
         //menutup koneksi database
